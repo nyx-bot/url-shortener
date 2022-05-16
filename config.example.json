@@ -1,0 +1,18 @@
+{
+    "baseURL": "awou.me",
+    "port": 80,
+    "apiKey": "Generate an API key for usage here",
+    "config": {
+        "allowUserIdentification": true,
+        "vanity": {
+            "enabled": true,
+            "expirationEnabled": true,
+            "expiration": 30
+        },
+        "default": {
+            "enabled": true,
+            "expirationEnabled": true,
+            "expiration": 30
+        }
+    }
+}
