@@ -10,6 +10,7 @@ module.exports = async (seq, func) => {
         
         try {
             const entry = await func.getURL(seq, shortURL);
+            console.log(entry.destinationURL)
             res.redirect(301, entry.destinationURL)
         } catch(e) {
             res.code(404).send(`Not found`)
