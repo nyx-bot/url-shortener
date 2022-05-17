@@ -11,7 +11,9 @@ module.exports = async (seq, func) => {
         try {
             const entry = await func.getURL(seq, shortURL);
             console.log(entry.destinationURL)
-            res.redirect(301, entry.destinationURL)
+            if(entry.destinationURL.match(/https:\/[a-zA-Z0-9]/) || entry.destinationURL.match(/http:\/[a-zA-Z0-9]/)) {
+                res.redirect(301, entry.destinationURL.replace('https:/', `https://`).replace(`http:/`, `http://`))
+            } else res.redirect(301, entry.destinationURL)
         } catch(e) {
             console.log(`${shortURL} - ${e}`)
             res.code(404).send(`Not found`)
