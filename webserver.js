@@ -13,6 +13,7 @@ module.exports = async (seq, func) => {
             console.log(entry.destinationURL)
             res.redirect(301, entry.destinationURL)
         } catch(e) {
+            console.log(`${shortURL} - ${e}`)
             res.code(404).send(`Not found`)
         }
     });
