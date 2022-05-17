@@ -11,7 +11,8 @@ module.exports = (conf) => {
         },
         shortURL: {
             type: DataTypes.STRING,
-            defaultValue: 'abcd'
+            defaultValue: 'abcd',
+            primaryKey: true,
         }
     };
     
@@ -24,7 +25,7 @@ module.exports = (conf) => {
     } else console.log(`Omitting user identification.`);
     
     if(config.config[conf].expirationEnabled) {
-        console.log(`Enabling expiration entries -- if previously disabled, existing database entries will be removed once the timer has started.`)
+        console.log(`Enabling expiration entries -- if previously disabled, existing database entries will be removed once overwritten.`)
         obj.expires = {
             type: DataTypes.INTEGER,
             defaultValue: -1,
