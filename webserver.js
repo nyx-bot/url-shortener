@@ -96,6 +96,18 @@ module.exports = async (seq, func) => {
     })
 
     fastify.listen(require('./config.json').port).then(() => {
-        console.log(`Service is now active!`)
+        console.log(`Service is now active!`);
+
+        if(require('./config.json').uptimeHeartbeatRequest && typeof require('./config.json').uptimeHeartbeatRequest == `string`) {
+            console.log(`Uptime pinger enabled!`);
+
+            const timer = require('cron').job(`* * * * *`, /*runs every minute*/ () => {
+                require(`superagent`).get(require('./config.json').uptimeHeartbeatRequest).then(() => {
+                    console.log(`successfully sent uptime ping to url ${require('./config.json').uptimeHeartbeatRequest}`)
+                }).catch(e => {
+                    console.error(`failed to send uptime ping to url ${require('./config.json').uptimeHeartbeatRequest}`, e)
+                })
+            }); timer.start()
+        }
     })
 }

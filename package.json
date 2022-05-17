@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "cron": "^2.0.0",
     "fastify": "^3.29.0",
     "sequelize": "^6.19.0",
-    "sqlite3": "^5.0.8"
+    "sqlite3": "^5.0.8",
+    "superagent": "^7.1.3"
   }
 }

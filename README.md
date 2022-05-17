@@ -10,6 +10,7 @@ Shorten links! (just a small service with no front-end, just an API that works w
     "baseURL": "awou.me", // this is the URL that you are hosting your URL shortener on -- do not prefix with http:// or https://, this is automatically handled.
     "port": 80, // what port should the server be active on? (note that the service was built under the intention of being ran behind a proxy -- SSL was NOT implemented)
     "apiKey": "Generate an API key for usage here", // the API key to be used for submitting new short links -- API will be public if this doesn't return a string.
+    "uptimeHeartbeatRequest": "https://uptimerobot.com/...", // a URL to ping in 1 minute intervals to report the service's uptime -- in Nyx's case, we're using uptimerobot's heartbeat system.
     "config": {
         "allowUserIdentification": true, // if enabled, short URL creation requests will require a unique user identifier -- this allows the original requester to update a shortened link (vanity or not)
         "vanity": {

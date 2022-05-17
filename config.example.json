@@ -2,6 +2,7 @@
     "baseURL": "awou.me",
     "port": 80,
     "apiKey": "Generate an API key for usage here",
+    "uptimeHeartbeatRequest": null,
     "config": {
         "allowUserIdentification": true,
         "vanity": {
