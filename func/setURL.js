@@ -19,8 +19,8 @@ setVanityURL = (seq, url, vanity, uid, updateEntry) => new Promise(async (res, r
     }
 })
 
-module.exports = (seq, url, vanity, uid) => new Promise(async (res, rej) => {
-    if(vanity) {
+module.exports = (seq, url, vanity, uid, forceDefaultEntry) => new Promise(async (res, rej) => {
+    if(vanity && require(`../config.json`).config.vanity.enabled && !forceDefaultEntry) {
         const existingVanity = await seq.models.vanity.findOne({
             where: {
                 shortURL: vanity,
@@ -32,6 +32,7 @@ module.exports = (seq, url, vanity, uid) => new Promise(async (res, rej) => {
 
             if(existingVanity.expires < Date.now()) {
                 console.log(`Vanity has been expired, overwriting!`)
+                await seq.models.vanity.destroy({where: {shortURL: vanity}});
                 setVanityURL(seq, url, vanity, uid, existingVanity).then(res).catch(rej)
             } else if(existingVanity.userID && existingVanity.userID == uid) {
                 console.log(`User ID is the same as the original, overwriting!`)
@@ -49,9 +50,23 @@ module.exports = (seq, url, vanity, uid) => new Promise(async (res, rej) => {
         if(existingLocation) {
             res(existingLocation)
         } else {
+            let gen = require(`../util/randomGen`)(4);
+            
+            while(await seq.models.vanity.findOne({where: {shortURL: gen}})) {
+                const model = await seq.models.vanity.findOne({where: {shortURL: gen}});
+
+                if(model.expires < Date.now()) {
+
+                } else {
+                    console.log(`Vanity for gen ${gen} already exists; it is expired, so we will overwrite it :)`); 
+                    await seq.models.vanity.destroy({where: {shortURL: gen}});
+                    gen = require('../util/randomGen')(4)
+                }
+            }
+
             let obj = {
                 destinationURL: url,
-                shortURL: require(`../util/randomGen`)(4)
+                shortURL: vanity || gen
             };
 
             if(require(`../config.json`).config.allowUserIdentification) obj.userID = `${uid}`;
