@@ -3,7 +3,19 @@ Shorten links! (just a small service with no front-end, just an API that works w
 
 ------
 
-### Configuration
+## Setup & Installation
+
+Everything within Nyx's organization is built in NodeJS -- you can find installation instructions on their own [download page](https://nodejs.org/en/download/) -- we recommend v16 LTS, as most projects are written & tested with that version (especially because you will find some build problems in some repositories with an earlier release)
+
+Setup is relatively simple -- all you need to do is clone the repository (`git clone https://github.com/nyx-bot/url-shortener`) and install the required packages (`npm i`).
+
+After that, create a copy of `config.example.json` to `config.json`, and set up the service to your liking. See [configuration](#configuration) for reference.
+
+To run the service, all you need to do is run `node index` -- to keep the service running, we'd recommend something like [PM2](https://pm2.keymetrics.io/)
+
+------
+
+## Configuration
 
 ```js
 {
