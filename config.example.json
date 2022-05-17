@@ -7,10 +7,10 @@
         "vanity": {
             "enabled": true,
             "expirationEnabled": true,
-            "expiration": 30
+            "expiration": 30,
+            "maximumCharacterLength": 16
         },
         "default": {
-            "enabled": true,
             "expirationEnabled": true,
             "expiration": 30
         }

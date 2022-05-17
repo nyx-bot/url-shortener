@@ -15,10 +15,10 @@ Shorten links! (just a small service with no front-end, just an API that works w
         "vanity": {
             "enabled": true, // self explanatory
             "expirationEnabled": true, // whether or not vanity links can expire
-            "expiration": 30 // the time in days which vanity links expire
+            "expiration": 30, // the time in days which vanity links expire
+            "maximumCharacterLength": 16 // the maximum number of alphanumeric characters allowed in a custom vanity URL
         },
         "default": {
-            "enabled": true, // self explanatory
             "expirationEnabled": true, // whether or not regular short links can expire
             "expiration": 30 // the time in days which the regular short links expire
         }
