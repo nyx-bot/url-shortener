@@ -18,7 +18,7 @@ module.exports = () => new Promise(async (res) => {
         return console.error(`Unable to authenticate to DB! // ${e}`, e);
     }
 
-    if(config.config.default.enabled) seq.define('default', require(`./util/dbTable`)(`default`))
+    seq.define('default', require(`./util/dbTable`)(`default`))
     if(config.config.vanity.enabled) seq.define('vanity', require(`./util/dbTable`)(`vanity`))
      
     const sync = require('./util/synchronizeDatabase');
