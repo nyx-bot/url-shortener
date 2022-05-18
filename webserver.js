@@ -58,7 +58,7 @@ module.exports = async (seq, func) => {
 
             if(config.config.vanity.enabled && req.body.shortURL) {
                 if(req.body.shortURL.length < 5) return res.code(400).send(`Vanity URLs must be greater than or equal to 5 characters in length!`);
-                if(typeof config.config.vanity.maximumCharacterLength == `number` && req.body.shortURL.length > config.config.vanity.maximumCharacterLength) return res.code(400).send(`Exceeds maximum character length! (${config.config.vanity.maximumCharacterLength})`)
+                if(typeof config.config.vanity.maximumCharacterLength == `number` && req.body.shortURL.length > config.config.vanity.maximumCharacterLength) return res.code(413).send(`Exceeds maximum character length! (${config.config.vanity.maximumCharacterLength})`)
                 if(req.body.shortURL.match(/^[a-zA-Z0-9_]*$/)) {
                     func.setURL(seq, req.body.destination, req.body.shortURL, config.config.allowUserIdentification ? req.body.user : null).then(o => res.send(parseEntry(o, `vanity`))).catch(e => res.code(403).send(e))
                 } else {
@@ -70,7 +70,7 @@ module.exports = async (seq, func) => {
 
     fastify.post(`/api/find`, async (req, res) => {
         if(config.apiKey) {
-            if(!req.headers.authorization || req.headers.authorization != config.apiKey) return res.code(403).send(`Unauthorized`)
+            if(!req.headers.authorization || req.headers.authorization != config.apiKey) return res.code(401).send(`Unauthorized`)
         }
 
         if(req.body && typeof req.body == `object`) {
